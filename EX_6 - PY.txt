@@ -1,0 +1,24 @@
+class BullyAlgorithm:
+
+    def __init__(self, nodeId, nodes):
+        self.nodeId = nodeId
+        self.nodes = nodes
+
+    def startElection(self):
+
+        highest = max(self.nodes)
+
+        if self.nodeId == highest:
+            print(f"Node {self.nodeId} is Coordinator")
+        else:
+            print(f"Node {highest} becomes Coordinator")
+
+
+# Nodes list
+nodes = [1, 2, 3, 4, 5]
+
+# Create object
+bully = BullyAlgorithm(3, nodes)
+
+# Start election
+bully.startElection()

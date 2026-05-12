@@ -1,0 +1,26 @@
+# Berkeley Clock Synchronization Algorithm
+
+def berkeley_algorithm(time_offsets):
+
+    # Calculate average offset
+    avg_offset = sum(time_offsets) / len(time_offsets)
+
+    # Adjust clocks according to average
+    adjusted_clocks = []
+
+    for time in time_offsets:
+        adjusted_time = time - avg_offset
+        adjusted_clocks.append(round(adjusted_time, 2))
+
+    return adjusted_clocks
+
+
+# Sample clock offsets
+time_offsets = [1.2, 0.5, -0.3, 2.1, -1.0]
+
+# Synchronize clocks
+adjusted_clocks = berkeley_algorithm(time_offsets)
+
+# Display results
+print("Original Clock Offsets:", time_offsets)
+print("Adjusted Clock Offsets:", adjusted_clocks)

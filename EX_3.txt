@@ -1,0 +1,55 @@
+import mpi.MPI;
+
+public class ArraySumMPI {
+
+    public static void main(String[] args) {
+
+        // Initialize MPI
+        MPI.Init(args);
+
+        // Get process rank and total processes
+        int rank = MPI.COMM_WORLD.Rank();
+        int size = MPI.COMM_WORLD.Size();
+
+        // Sample array
+        int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        int n = array.length;
+
+        int localSum = 0;
+        int[] globalSum = new int[1];
+
+        // Calculate start and end index
+        int startIndex = rank * (n / size);
+
+        int endIndex =
+                (rank == size - 1)
+                ? (n - 1)
+                : (startIndex + (n / size) - 1);
+
+        // Calculate local sum
+        for (int i = startIndex; i <= endIndex; i++) {
+            localSum += array[i];
+        }
+
+        // Reduce local sums into global sum
+        MPI.COMM_WORLD.Reduce(
+                new int[]{localSum},
+                0,
+                globalSum,
+                0,
+                1,
+                MPI.INT,
+                MPI.SUM,
+                0
+        );
+
+        // Print result at root process
+        if (rank == 0) {
+            System.out.println("Global sum: " + globalSum[0]);
+        }
+
+        // Finalize MPI
+        MPI.Finalize();
+    }
+}

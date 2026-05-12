@@ -1,0 +1,29 @@
+class TokenRing:
+
+    def __init__(self, n):
+        self.nodes = [None] * n
+
+    def set_node(self, i, data):
+        self.nodes[i] = data
+
+    def run(self):
+
+        for i in range(len(self.nodes)):
+
+            token = self.nodes[i]
+
+            print(f"Node {i}: Received '{token}'")
+            print(f"Node {i}: Processing '{token}'")
+
+
+# Create token ring
+tr = TokenRing(4)
+
+# Add data
+tr.set_node(0, "Data 1")
+tr.set_node(1, "Data 2")
+tr.set_node(2, "Data 3")
+tr.set_node(3, "Data 4")
+
+# Run token ring
+tr.run()

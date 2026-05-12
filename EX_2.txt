@@ -1,0 +1,81 @@
+package HelloWorldApp;
+
+import HelloWorldApp.*;
+import org.omg.CosNaming.*;
+import org.omg.CORBA.*;
+import org.omg.PortableServer.*;
+
+// -------- SERVER --------
+public class HelloWorldApp {
+
+    public static void main(String[] args) {
+
+        try {
+
+            ORB orb = ORB.init(args, null);
+
+            POA rootPOA = POAHelper.narrow(
+                    orb.resolve_initial_references("RootPOA"));
+
+            rootPOA.the_POAManager().activate();
+
+            HelloWorldImpl obj = new HelloWorldImpl();
+
+            org.omg.CORBA.Object ref =
+                    rootPOA.servant_to_reference(obj);
+
+            HelloWorld href =
+                    HelloWorldHelper.narrow(ref);
+
+            org.omg.CORBA.Object objRef =
+                    orb.resolve_initial_references("NameService");
+
+            NamingContextExt ncRef =
+                    NamingContextExtHelper.narrow(objRef);
+
+            ncRef.rebind(ncRef.to_name("HelloWorld"), href);
+
+            System.out.println("Server Started");
+
+            orb.run();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+// -------- IMPLEMENTATION --------
+class HelloWorldImpl extends HelloWorldPOA {
+
+    public String sayHello() {
+        return "Hello World";
+    }
+}
+
+// -------- CLIENT --------
+class HelloWorldClient {
+
+    public static void main(String[] args) {
+
+        try {
+
+            ORB orb = ORB.init(args, null);
+
+            org.omg.CORBA.Object objRef =
+                    orb.resolve_initial_references("NameService");
+
+            NamingContextExt ncRef =
+                    NamingContextExtHelper.narrow(objRef);
+
+            HelloWorld obj =
+                    HelloWorldHelper.narrow(
+                            ncRef.resolve_str("HelloWorld"));
+
+            System.out.println(obj.sayHello());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
