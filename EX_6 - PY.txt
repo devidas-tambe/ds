@@ -6,7 +6,7 @@ class BullyAlgorithm:
 
     def startElection(self):
  
-        highest = max(self.nodes)
+        highest = max(self.nodes) 
 
         if self.nodeId == highest:
             print(f"Node {self.nodeId} is Coordinator")
