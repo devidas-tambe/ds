@@ -5,7 +5,7 @@ class BullyAlgorithm:
         self.nodes = nodes
 
     def startElection(self):
-
+ 
         highest = max(self.nodes)
 
         if self.nodeId == highest:
