@@ -5,7 +5,7 @@ def berkeley_algorithm(time_offsets):
     # Calculate average offset
     avg_offset = sum(time_offsets) / len(time_offsets)
 
-    # Adjust clocks according to average
+    # Adjust clocks according to average 
     adjusted_clocks = []
 
     for time in time_offsets:
