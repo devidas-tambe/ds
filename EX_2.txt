@@ -2,7 +2,7 @@ package HelloWorldApp;
 
 import HelloWorldApp.*;
 import org.omg.CosNaming.*;
-import org.omg.CORBA.*;
+import org.omg.CORBA.*; 
 import org.omg.PortableServer.*;
 
 // -------- SERVER --------
